@@ -37,9 +37,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // Stateless API ke liye CSRF disable
+        http   
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) //CORS config source
+                .csrf(csrf -> csrf.disable()) // Stateless API ke liye CSRF disable
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()   // Signup aur Login allowed hain
                         .requestMatchers("/api/tasks/**").permitAll()  //Isse saare Tasks operations allow ho jayenge
