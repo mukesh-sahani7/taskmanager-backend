@@ -6,6 +6,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
+@SpringBootApplication
+@ComponentScan(basePackages = {"com.example.taskmanager.controller", "com.example.taskmanager.Config"})
 public class TaskmanagerApplication {
 
 	public static void main(String[] args) {
