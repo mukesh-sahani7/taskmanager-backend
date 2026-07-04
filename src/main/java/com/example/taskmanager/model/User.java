@@ -21,6 +21,6 @@ public class User {
     private String name;
 
     @Lob
-    @Column(name = "profile_pic", columnDefinition = "LONGTEXT")
+    @Column(name = "profile_pic", columnDefinition = "TEXT")
     private String profilePic;
 }
