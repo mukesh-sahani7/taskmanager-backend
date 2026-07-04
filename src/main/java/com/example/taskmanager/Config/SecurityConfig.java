@@ -22,8 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable()) // Stateless API ke liye CSRF disable
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .cors(cors -> cors.configure(http)) // Frontend integration ke liye CORS enable
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) //CORS config source
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()   // Signup aur Login allowed hain
                         .requestMatchers("/api/tasks/**").permitAll()  //Isse saare Tasks operations allow ho jayenge
