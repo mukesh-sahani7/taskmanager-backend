@@ -1,5 +1,4 @@
 package com.example.taskmanager.Config;
-package com.example.taskmanager.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,17 +22,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // CORS ko inline hi config kar rahe hain taaki koi alag bean load hone ka jhanjhat hi na rahe
             .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration config = new CorsConfiguration();
                 config.setAllowedOrigins(List.of("*"));
                 config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                config.setAllowedHeaders(List.of("*")); // Saare headers allow karo
+                config.setAllowedHeaders(List.of("*"));
                 return config;
             }))
-            .csrf(csrf -> csrf.disable()) // CSRF disable
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll() //  LIVE ENVIRONMENT MEIN SAARE ENDPOINTS APNE AAP PERMIT HO JAYENGE
+                .anyRequest().permitAll()
             );
 
         return http.build();
