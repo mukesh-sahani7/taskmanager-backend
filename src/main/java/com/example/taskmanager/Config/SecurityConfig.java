@@ -22,6 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable()) // Stateless API ke liye CSRF disable
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .cors(cors -> cors.configure(http)) // Frontend integration ke liye CORS enable
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()   // Signup aur Login allowed hain
@@ -32,4 +33,19 @@ public class SecurityConfig {
 
         return http.build();
     }
+    
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    
+   
+    configuration.setAllowedOrigins(List.of("*")); 
+    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
+    configuration.setExposedHeaders(List.of("Authorization"));
+    
+    org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration); // Saare endpoints par apply karein
+    return source;
+}
 }
