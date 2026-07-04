@@ -23,17 +23,20 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     // 1. SIGNUP / REGISTER ENDPOINT
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Error: Email is already taken!");
-        }
-
-        // Password ko encrypt karke save kar rahe hain
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.ok(savedUser);
+   @PostMapping("/signup")
+public ResponseEntity<?> registerUser(@RequestBody User user) {
+    if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+        // Plain string ke bajaye ek proper JSON object (Map) banakar bhej rahe hain
+        java.util.Map<String, String> errorResponse = new java.util.HashMap<>();
+        errorResponse.put("error", "Error: Email is already taken!");
+        return ResponseEntity.badRequest().body(errorResponse);
     }
+
+    // Password ko encrypt karke save kar rahe hain
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    User savedUser = userRepository.save(user);
+    return ResponseEntity.ok(savedUser);
+}
 
     // 2. LOGIN ENDPOINT
     @PostMapping("/login")
