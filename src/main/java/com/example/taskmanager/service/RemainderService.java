@@ -40,7 +40,8 @@ public class RemainderService {
             }
         }
     }
-
+ 
+    @Async
     private void sendEmail(task task) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
