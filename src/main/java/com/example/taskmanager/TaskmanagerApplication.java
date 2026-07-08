@@ -6,6 +6,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.context.annotation.ComponentScan;
 
 @EnableScheduling
+@EnableAsync
 @SpringBootApplication
 @ComponentScan(basePackages = {
     "com.example.taskmanager", 
