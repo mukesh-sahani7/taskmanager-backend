@@ -42,8 +42,8 @@ public class RemainderService {
     }
  
     @Async
-    private void sendEmail(task task) {
-        try {
+    public void sendEmail(task task) {
+      
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(task.getUser().getEmail()); // User ka email automatically pick hoga
             message.setSubject("⏰ Task Reminder: " + task.getTitle());
