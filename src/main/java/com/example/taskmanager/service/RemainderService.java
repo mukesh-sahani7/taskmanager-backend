@@ -30,7 +30,7 @@ public class RemainderService {
         List<task> tasks = taskRepository.findAll();
 
         for (task task : tasks) {
-            if (task.getReminderTime() != null && task.getStatus().equals("PENDING")) {
+            if (task.getReminderTime() != null && "PENDING".equalsIgnoreCase(task.getStatus())) {
                 LocalDateTime taskTime = task.getReminderTime().truncatedTo(ChronoUnit.MINUTES);
 
                 // Agar abhi ka time aur reminder ka time match kar jaye
@@ -43,7 +43,7 @@ public class RemainderService {
  
     @Async
     public void sendEmail(task task) {
-      
+      try{
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(task.getUser().getEmail()); // User ka email automatically pick hoga
             message.setSubject("⏰ Task Reminder: " + task.getTitle());
